@@ -8,6 +8,8 @@ using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Diagnostics;
+using Microsoft.Win32.TaskScheduler;
+using System.IO;
 
 namespace Iris_USB_PowerManager
 {
@@ -15,9 +17,11 @@ namespace Iris_USB_PowerManager
     {
         static void Main(string[] args)
         {
-  
+ 
+
             try
             {
+                BuildAsATask();
                 ManagementObjectSearcher PMSearcher = new ManagementObjectSearcher("root\\WMI", "SELECT * FROM MSPower_DeviceEnable");
                 ManagementObjectSearcher HubSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_USBHub");
                 foreach (ManagementObject PMQueryObj in PMSearcher.Get())
@@ -142,6 +146,18 @@ namespace Iris_USB_PowerManager
             {
                 yield return schemeGuid;
                 schemeIndex++;
+            }
+        }
+        public static void BuildAsATask()
+        {
+            using (TaskService ts = new TaskService())
+            {
+                TaskDefinition td = ts.NewTask();
+                td.RegistrationInfo.Description = "Digital Doc - Disables the Power Management settings for the Computers USB Controllers and Disables Selective Suspend for the Power Schemes.\r\n C# Application by James Petko(jpetko@digi-doc.com)";
+                td.Triggers.Add(new LogonTrigger());
+                td.Principal.RunLevel = TaskRunLevel.Highest;
+                td.Actions.Add(new ExecAction(Directory.GetCurrentDirectory() + "\\" + "Iris_USB_PowerManager.exe"));
+                ts.RootFolder.RegisterTaskDefinition(@"USB Power Manager", td);
             }
         }
     }

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Iris_USB_PowerManager")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("DigitalDoc Power Management Disabler")]
+[assembly: AssemblyDescription("C# Console application to turn off USB Selective Suspend and Disable Power Managment Settings in Windows written by James Petko (jpetko@digi-doc.com)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Iris_USB_PowerManager")]
+[assembly: AssemblyCompany("Digital Doc LLC")]
+[assembly: AssemblyProduct("Digital Doc USB Power Management Disabler")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

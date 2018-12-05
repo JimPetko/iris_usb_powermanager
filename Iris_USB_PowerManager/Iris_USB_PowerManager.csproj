@@ -7,7 +7,7 @@
     <ProjectGuid>{710FCF3D-8FCC-43C1-8FC2-78A96F2D6230}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Iris_USB_PowerManager</RootNamespace>
-    <AssemblyName>Iris_USB_PowerManager</AssemblyName>
+    <AssemblyName>DigitalDoc Power Management Disabler</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

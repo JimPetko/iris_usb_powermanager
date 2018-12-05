@@ -24,16 +24,21 @@ namespace Iris_USB_PowerManager
                 BuildAsATask();
                 ManagementObjectSearcher PMSearcher = new ManagementObjectSearcher("root\\WMI", "SELECT * FROM MSPower_DeviceEnable");
                 ManagementObjectSearcher HubSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_USBHub");
+                ManagementObjectSearcher ControllerSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_USBHub");
                 foreach (ManagementObject PMQueryObj in PMSearcher.Get())
                 {
                     string s_ControllerName = PMQueryObj["InstanceName"].ToString().ToUpper();
-                    foreach (ManagementObject HubQueryObj in HubSearcher.Get())
+                    foreach (ManagementObject ContQuery in ControllerSearcher.Get())
                     {
-                        string PnpDeviceID = HubQueryObj["PNPDeviceID"].ToString();
-                        if (s_ControllerName.Contains(PnpDeviceID))
+                        string s_HostController = ContQuery["DeviceID"].ToString().ToUpper();
+                        foreach (ManagementObject HubQueryObj in HubSearcher.Get())
                         {
-                            PMQueryObj.SetPropertyValue("Enable", "False");
-                            PMQueryObj.Put();
+                            string PnpDeviceID = HubQueryObj["PNPDeviceID"].ToString();
+                            if (s_ControllerName.Contains(PnpDeviceID)||s_HostController.Contains(PnpDeviceID))
+                            {
+                                PMQueryObj.SetPropertyValue("Enable", "False");
+                                PMQueryObj.Put();
+                            }
                         }
                     }
                 }

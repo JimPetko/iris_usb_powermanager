@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Management;
-using System.Threading.Tasks;
-using Microsoft.Win32;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Diagnostics;
+﻿using Microsoft.Win32;
 using Microsoft.Win32.TaskScheduler;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Management;
+using System.Runtime.InteropServices;
 
-namespace Iris_USB_PowerManager
+namespace USB_PowerManager
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
- 
-
             try
             {
                 BuildAsATask();
@@ -34,7 +28,7 @@ namespace Iris_USB_PowerManager
                         foreach (ManagementObject HubQueryObj in HubSearcher.Get())
                         {
                             string PnpDeviceID = HubQueryObj["PNPDeviceID"].ToString();
-                            if (s_ControllerName.Contains(PnpDeviceID)||s_HostController.Contains(PnpDeviceID))
+                            if (s_ControllerName.Contains(PnpDeviceID) || s_HostController.Contains(PnpDeviceID))
                             {
                                 PMQueryObj.SetPropertyValue("Enable", "False");
                                 PMQueryObj.Put();
@@ -44,9 +38,9 @@ namespace Iris_USB_PowerManager
                 }
                 RegistryKey key = Registry.LocalMachine.CreateSubKey(@"SYSTEM\CurrentControlSet\Services\USB");
                 key.SetValue("DisableSelectiveSuspend", 1, RegistryValueKind.DWord);
-                
+
                 //disable selective suspend on battery and AC power
-                var guidPlans = GetAll();   
+                var guidPlans = GetAll();
                 foreach (Guid guidPlan in guidPlans)
                 {
                     Process p = new Process();
@@ -98,7 +92,6 @@ namespace Iris_USB_PowerManager
             throw new Exception("Error reading current power scheme. Native Win32 error code = " + res);
         }
 
-
         [DllImport("PowrProf.dll")]
         public static extern UInt32 PowerEnumerate(IntPtr RootPowerKey, IntPtr SchemeGuid, IntPtr SubGroupOfPowerSettingGuid, UInt32 AcessFlags, UInt32 Index, ref Guid Buffer, ref UInt32 BufferSize);
 
@@ -107,11 +100,10 @@ namespace Iris_USB_PowerManager
 
         [DllImport("powrprof.dll")]
         public static extern UInt32 PowerReadFriendlyName(
-        IntPtr RootPowerKey,IntPtr SchemeGuid,IntPtr SubGroupOfPowerSettingGuid,IntPtr PowerSettingGuid,IntPtr Buffer, ref UInt32 BufferSize);
+        IntPtr RootPowerKey, IntPtr SchemeGuid, IntPtr SubGroupOfPowerSettingGuid, IntPtr PowerSettingGuid, IntPtr Buffer, ref UInt32 BufferSize);
 
         [DllImport("powrprof.dll")]
         public static extern UInt32 PowerGetActiveScheme(IntPtr UserRootPowerKey, ref IntPtr ActivePolicyGuid);
-
 
         public enum AccessFlags : uint
         {
@@ -153,6 +145,7 @@ namespace Iris_USB_PowerManager
                 schemeIndex++;
             }
         }
+
         public static void BuildAsATask()
         {
             using (TaskService ts = new TaskService())
@@ -167,3 +160,15 @@ namespace Iris_USB_PowerManager
         }
     }
 }
+
+/*
+Windows 10 & 7
+Subgroup GUID: 2a737441-1930-4402-8d77-b2bebba308a3  (USB settings)
+    Power Setting GUID: 48e6b7a6-50f5-4782-a5d4-53bb8f07e226  (USB selective suspend setting)
+      Possible Setting Index: 000
+      Possible Setting Friendly Name: Disabled
+      Possible Setting Index: 001
+      Possible Setting Friendly Name: Enabled
+    Current AC Power Setting Index: 0x00000000
+    Current DC Power Setting Index: 0x00000001
+    */

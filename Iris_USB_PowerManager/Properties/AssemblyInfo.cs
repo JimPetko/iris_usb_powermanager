@@ -1,15 +1,14 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DigitalDoc Power Management Disabler")]
-[assembly: AssemblyDescription("C# Console application to turn off USB Selective Suspend and Disable Power Managment Settings in Windows written by James Petko (jpetko@digi-doc.com)")]
+[assembly: AssemblyTitle("USB Power Manager")]
+[assembly: AssemblyDescription("C# Console application to turn off USB Selective Suspend and Disable Power Managment Settings in Windows written by James Petko (petko.james@gmail.com)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Digital Doc LLC")]
-[assembly: AssemblyProduct("Digital Doc USB Power Management Disabler")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("USB_PowerManager")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{710FCF3D-8FCC-43C1-8FC2-78A96F2D6230}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Iris_USB_PowerManager</RootNamespace>
-    <AssemblyName>DigitalDoc Power Management Disabler</AssemblyName>
+    <RootNamespace>USB_PowerManager</RootNamespace>
+    <AssemblyName>USB Power Manager</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

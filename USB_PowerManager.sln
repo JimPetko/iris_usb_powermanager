@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "USB_PowerManager", "Iris_USB_PowerManager\USB_PowerManager.csproj", "{710FCF3D-8FCC-43C1-8FC2-78A96F2D6230}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "USB_PowerManager", "USB_PowerManager\USB_PowerManager.csproj", "{710FCF3D-8FCC-43C1-8FC2-78A96F2D6230}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,7 +15,8 @@ namespace USB_PowerManager
         {
             try
             {
-                BuildAsATask();
+                if(args[0] != null)
+                    BuildAsATask();
                 ManagementObjectSearcher PMSearcher = new ManagementObjectSearcher("root\\WMI", "SELECT * FROM MSPower_DeviceEnable");
                 ManagementObjectSearcher HubSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_USBHub");
                 ManagementObjectSearcher ControllerSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_USBHub");
@@ -151,7 +152,7 @@ namespace USB_PowerManager
             using (TaskService ts = new TaskService())
             {
                 TaskDefinition td = ts.NewTask();
-                td.RegistrationInfo.Description = "Digital Doc - Disables the Power Management settings for the Computers USB Controllers and Disables Selective Suspend for the Power Schemes.\r\n C# Application by James Petko(jpetko@digi-doc.com)";
+                td.RegistrationInfo.Description = "Disables the Power Management settings for the Computers USB Controllers and Disables Selective Suspend for the Power Schemes.\r\n C# Application by James Petko(petko.james@gmail.com)";
                 td.Triggers.Add(new LogonTrigger());
                 td.Principal.RunLevel = TaskRunLevel.Highest;
                 td.Actions.Add(new ExecAction(Directory.GetCurrentDirectory() + "\\" + "Iris_USB_PowerManager.exe"));
@@ -160,15 +161,3 @@ namespace USB_PowerManager
         }
     }
 }
-
-/*
-Windows 10 & 7
-Subgroup GUID: 2a737441-1930-4402-8d77-b2bebba308a3  (USB settings)
-    Power Setting GUID: 48e6b7a6-50f5-4782-a5d4-53bb8f07e226  (USB selective suspend setting)
-      Possible Setting Index: 000
-      Possible Setting Friendly Name: Disabled
-      Possible Setting Index: 001
-      Possible Setting Friendly Name: Enabled
-    Current AC Power Setting Index: 0x00000000
-    Current DC Power Setting Index: 0x00000001
-    */
